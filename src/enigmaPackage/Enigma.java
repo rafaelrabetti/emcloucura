@@ -8,8 +8,6 @@ import java.util.*;
  *   Specifications of rotors and reflectors obtained from
  *   http://www.codesandciphers.org.uk/enigma/rotorspec.htm and
  *   http://homepages.tesco.net/~andycarlson/enigma/simulating_enigma.html</p>
- * @author Meghan Emilio
- * @version 1.0
  */
 public class Enigma
 {
@@ -390,7 +388,6 @@ public class Enigma
      p = p.toUpperCase();
      String e = "";
      char c;
-     int k;
      
      //for the length of the inputted text
      for(int i=0; i<p.length(); i++){

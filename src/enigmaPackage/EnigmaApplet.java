@@ -9,8 +9,6 @@ import java.util.*;
 /**
  * <p>Title: Enigma Applet</p>
  * <p>Description: User Interface for Enigma Applet</p>
- * @author Meghan Emilio
- * @version 1.0
  */
 
 public class EnigmaApplet extends JApplet implements ActionListener{
@@ -43,12 +41,9 @@ public class EnigmaApplet extends JApplet implements ActionListener{
   private Choice initTwo;
   private Choice initThree;
   private ButtonGroup group;
-  private JRadioButton analyzeRB;
   private JRadioButton encryptRB;
   private JButton encrypt;
-  private JButton analyze;
   private Enigma enigma;
-  private Analyzer analyzer;
 
  /**
   *Class Constructor
@@ -139,14 +134,11 @@ public class EnigmaApplet extends JApplet implements ActionListener{
     encryptRB = new JRadioButton("Encrypt/Decrypt");
     group.add(encryptRB);
   	encryptRB.setSelected(true);
-    analyzeRB = new JRadioButton("Analyze");
-    group.add(analyzeRB);
     encrypt = new JButton("Ok");
     encrypt.setPreferredSize(new Dimension(25,30));
 
     panel = new Box(BoxLayout.Y_AXIS);
 	panel.add(encryptRB);
-	panel.add(analyzeRB);
 	
 	heuristic = new JCheckBox("Use Heuristic Algorithm");
 
@@ -186,7 +178,6 @@ public class EnigmaApplet extends JApplet implements ActionListener{
 
     encrypt.addActionListener(this);
     encryptRB.addActionListener(this);
-    analyzeRB.addActionListener(this);
   }
 
 
@@ -233,20 +224,7 @@ public class EnigmaApplet extends JApplet implements ActionListener{
   */
   public void actionPerformed(ActionEvent e) {
   	
-  	//if analyze radio button is selected
-  	//disable the encryption options
-  	//and enable the analyzer options
-  	if(e.getSource().equals(analyzeRB)){
-  		plugBoard.setEnabled(false);
-  		rOne.setEnabled(false);
-  		rTwo.setEnabled(false);
-  		rThree.setEnabled(false);
-  		refl.setEnabled(false);
-  		initOne.setEnabled(false);
-  		initTwo.setEnabled(false);
-  		initThree.setEnabled(false);
-  		heuristic.setEnabled(true);
-  	}
+
   	
   	//if encrypt radio button is selected
   	//disable the analyzer options
@@ -305,17 +283,6 @@ public class EnigmaApplet extends JApplet implements ActionListener{
        		}
       	}
      }
-    
-    	//if analyzer button is selected
-     	if(analyzeRB.isSelected()){
-    		//call Analyzer() to decrypt the message
-     		String answer;
-     		analyzer = new Analyzer();
-     		answer = analyzer.analyze(inputField.getText(), heuristic.isSelected());
-     		
-     		//and output the results
-     		outputField.setText(answer);
-  		}
   	}
   	}
   }
