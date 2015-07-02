@@ -22,7 +22,6 @@ public class EnigmaApplet extends JApplet implements ActionListener{
   private TextArea inputField;
   private TextArea outputField;
   private TextArea plugBoard;
-  private JCheckBox heuristic;
   private JLabel label1;
   private JLabel label2;
   private JLabel label3;
@@ -76,18 +75,18 @@ public class EnigmaApplet extends JApplet implements ActionListener{
 	
 	//Initialize each component for the applet
 	
-    label1 = new JLabel(" Enter text: ");
+    label1 = new JLabel(" Texto: ");
     outputField = new TextArea("", 5, 15, TextArea.SCROLLBARS_VERTICAL_ONLY);
     outputField.setEditable(false);
     outputField.setEnabled(true);
     
-    label2 = new JLabel(" Result: ");
+    label2 = new JLabel(" Resultado: ");
     inputField = new TextArea("", 5, 15, TextArea.SCROLLBARS_VERTICAL_ONLY);
     
-    label7 = new JLabel(" Enter Plug Board settings: ");
+    label7 = new JLabel(" Configuração Plugboard: ");
     plugBoard = new TextArea("", 5, 15, TextArea.SCROLLBARS_VERTICAL_ONLY);
 
-    label3 = new JLabel(" Right Rotor: ");
+    label3 = new JLabel(" Rotor da Direita: ");
     rOne = new Choice();
     rOne.add("RotorI");
     rOne.add("RotorII");
@@ -98,7 +97,7 @@ public class EnigmaApplet extends JApplet implements ActionListener{
     rOne.add("RotorVII");
     rOne.add("RotorVIII");
     
-    label4 = new JLabel(" Middle Rotor: ");
+    label4 = new JLabel(" Rotor do Meio: ");
     rTwo = new Choice();
     rTwo.add("RotorI");
     rTwo.add("RotorII");
@@ -109,7 +108,7 @@ public class EnigmaApplet extends JApplet implements ActionListener{
     rTwo.add("RotorVII");
     rTwo.add("RotorVIII");
     
-    label5 = new JLabel(" Left Rotor: ");
+    label5 = new JLabel(" Rotor da Esquerda: ");
     rThree = new Choice();
     rThree.add("RotorI");
     rThree.add("RotorII");
@@ -124,14 +123,14 @@ public class EnigmaApplet extends JApplet implements ActionListener{
     initTwo = choiceFill(new Choice());
     initThree = choiceFill(new Choice());
     
-    label6 = new JLabel(" Choose Reflector: ");
+    label6 = new JLabel(" Escolha Refletor: ");
     refl = new Choice();
-    refl.add("ReflectorB");
-    refl.add("ReflectorC");
-    refl.add("No Reflector");
+    refl.add("RefletorB");
+    refl.add("RefletorC");
+    refl.add("Sem Refletor");
     
     group = new ButtonGroup();
-    encryptRB = new JRadioButton("Encrypt/Decrypt");
+    encryptRB = new JRadioButton("Criptografar/Descriptografar");
     group.add(encryptRB);
   	encryptRB.setSelected(true);
     encrypt = new JButton("Ok");
@@ -140,7 +139,6 @@ public class EnigmaApplet extends JApplet implements ActionListener{
     panel = new Box(BoxLayout.Y_AXIS);
 	panel.add(encryptRB);
 	
-	heuristic = new JCheckBox("Use Heuristic Algorithm");
 
     panel1 = new JPanel(new GridLayout(2,2,1,3));
     panel1.add(label1);
@@ -169,8 +167,6 @@ public class EnigmaApplet extends JApplet implements ActionListener{
     panel3.add(plugBoard);
     panel.add(panel3);
 	
-	panel.add(heuristic);
-	heuristic.setEnabled(false);
 
     panel.add(encrypt);
 
@@ -238,7 +234,6 @@ public class EnigmaApplet extends JApplet implements ActionListener{
   		initOne.setEnabled(true);
   		initTwo.setEnabled(true);
   		initThree.setEnabled(true);
-  		heuristic.setEnabled(false);
   	}
   	
   	//if the button is pressed...
@@ -249,7 +244,7 @@ public class EnigmaApplet extends JApplet implements ActionListener{
    		//then create a new Engima with the current settings  		
       		enigma = new Enigma(rOne.getSelectedItem(), rTwo.getSelectedItem(),
                           rThree.getSelectedItem(), refl.getSelectedItem());                 
-      		enigma.initialSettings(initOne.getSelectedItem(), initTwo.getSelectedItem(),
+      		enigma.configuracaoInicial(initOne.getSelectedItem(), initTwo.getSelectedItem(),
                              initThree.getSelectedItem());
 
 			//and check that the plug board settings are in the correct format

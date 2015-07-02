@@ -3,16 +3,16 @@ package enigmaPackage;
 import java.util.*;
 
 /**
- * <p>Title: Enigma</p>
- * <p>Description: A Simulation of the German Military Enigma Machine.
- *   Specifications of rotors and reflectors obtained from
- *   http://www.codesandciphers.org.uk/enigma/rotorspec.htm and
+ * <p>Título: Enigma</p>
+ * <p>Descrição: Simulação da máquina militar alemã engima.
+ *   A especificação dos rotores e dos refletores foi obtida em
+ *   http://www.codesandciphers.org.uk/enigma/rotorspec.htm e
  *   http://homepages.tesco.net/~andycarlson/enigma/simulating_enigma.html</p>
  */
 public class Enigma
 {
 
-  //STATIC ROTORS
+  //ROTORES STATIC
   public final static StringBuffer rotorI      = new StringBuffer("EKMFLGDQVZNTOWYHXUSPAIBRCJ");
   public final static StringBuffer rotorII     = new StringBuffer("AJDKSIRUXBLHWTMCQGZNPYFVOE");
   public final static StringBuffer rotorIII    = new StringBuffer("BDFHJLCPRTXVZNYEIWGAKMUSQO");
@@ -22,107 +22,107 @@ public class Enigma
   public final static StringBuffer rotorVII    = new StringBuffer("NZJHGRCXMYSWBOUFAIVLPEKQDT");
   public final static StringBuffer rotorVIII   = new StringBuffer("JPGVOUMFYQBENHZRDKASXLICTW");
 
-  //STATIC REFLECTORS
-  public static final StringBuffer reflectorB  = new StringBuffer("YRUHQSLDPXNGOKMIEBFZCWVJAT");
-  public static final StringBuffer reflectorC  = new StringBuffer("FVPJIAOYEDRZXWGCTKUQSBNMHL");
-  public static final StringBuffer reflector0  = new StringBuffer("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+  //REFLETORES STATIC
+  public static final StringBuffer refletorB  = new StringBuffer("YRUHQSLDPXNGOKMIEBFZCWVJAT");
+  public static final StringBuffer refletorC  = new StringBuffer("FVPJIAOYEDRZXWGCTKUQSBNMHL");
+  public static final StringBuffer refletor0  = new StringBuffer("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
 
-  //CURRENT ROTORS AND REFLECTOR IN USE
-  public StringBuffer firstRotor;
-  public StringBuffer firstRotorT = new StringBuffer(reflector0.toString());
-  public StringBuffer secondRotor;
-  public StringBuffer secondRotorT = new StringBuffer(reflector0.toString());
-  public StringBuffer thirdRotor;
-  public StringBuffer thirdRotorT = new StringBuffer(reflector0.toString());
-  public StringBuffer reflector;
+  //ROTORES E REFLETORES EM USO
+  public StringBuffer primeiroRotor;
+  public StringBuffer primeiroRotorT = new StringBuffer(refletor0.toString());
+  public StringBuffer segundoRotor;
+  public StringBuffer segundoRotorT = new StringBuffer(refletor0.toString());
+  public StringBuffer terceiroRotor;
+  public StringBuffer terceiroRotorT = new StringBuffer(refletor0.toString());
+  public StringBuffer refletor;
 
-  //CURRENT PLUGBOARD SETTINGS
+  //CONFIGURAÇÃO PLUGBOARD ATUAL
   public char[] plugBoard = new char[]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
-  //STATIC "NOTCHES"  - when each rotor rotates
+  //NOTHES STATIC  - QUANDO CADA ROTOR GIRA
   public final static StringBuffer[] notches = {new StringBuffer("Q"),new StringBuffer("E"),new StringBuffer("V"),new StringBuffer("J"),
   	new StringBuffer("Z"),new StringBuffer("Z"),new StringBuffer("Z"),new StringBuffer("Z")};
   
-  //CURRENT ROTOR NOTCHES
+  //NOTCHES ATUAIS DO ROTOR
   private StringBuffer n1;
   private StringBuffer n2;
   
    /**
-   * Class Constructor
-   *@param r1 rotor to be used as first rotor
-   *@param r2 rotor to be used as second rotor
-   *@param r3 rotor to be used as third rotor
-   *@param r reflector to be used
+   * Class Construtor
+   *@param r1 rotor será usado como primeiro rotor
+   *@param r2 rotor será usado como segundo rotor
+   *@param r3 rotor será usado como terceiro rotor
+   *@param r refletor que será usado
    */
   public Enigma(String r1, String r2, String r3, String r)
   {
-    firstRotor = getValue(r1)[0];
-    n1 = getValue(r1)[1];
-    secondRotor = getValue(r2)[0];
-    n2 = getValue(r2)[1];
-    thirdRotor = getValue(r3)[0];
-    reflector = getValue(r)[0];
+    primeiroRotor = getValor(r1)[0];
+    n1 = getValor(r1)[1];
+    segundoRotor = getValor(r2)[0];
+    n2 = getValor(r2)[1];
+    terceiroRotor = getValor(r3)[0];
+    refletor = getValor(r)[0];
   }
   
   /**
-   *Sets the first Rotor
-   *@param r1 rotor to be used as first rotor
+   *Seta o primeiro Rotor
+   *@param r1 rotor será usado como primeiro rotor
    *@return void
    */
-  public void setFirstRotor(String r1){
-  	firstRotor = getValue(r1)[0];
-    n1 = getValue(r1)[1];
+  public void setPrimeiroRotor(String r1){
+  	primeiroRotor = getValor(r1)[0];
+    n1 = getValor(r1)[1];
   }
 
  /**
-   *Sets the second Rotor
-   *@param r2 rotor to be used as second rotor
+   *Seta o segundo Rotor
+   *@param r2 rotor será usado como segundo rotor
    *@return void
    */
-  public void setSecondRotor(String r2){
-  	secondRotor = getValue(r2)[0];
-    n2 = getValue(r2)[1];
+  public void setSegundoRotor(String r2){
+  	segundoRotor = getValor(r2)[0];
+    n2 = getValor(r2)[1];
   }
   
   /**
-   *Sets the second Rotor
-   *@param r3 rotor to be used as third rotor
+   *Seta o terceiro Rotor
+   *@param r3 rotor será usado como terceiro rotor
    *@return void
    */ 
-  public void setThirdRotor(String r3){
-  	thirdRotor = getValue(r3)[0];
+  public void setTerceiroRotor(String r3){
+  	terceiroRotor = getValor(r3)[0];
   }
   
   /**
-   *Sets the intial settings of the rotors.
-   *@param s1 initial setting for first rotor
-   *@param s2 initial setting for second rotor
-   *@param s3 initial setting for third rotor
+   *Seta a configuração inicial dos rotores
+   *@param s1 configuração inicial para o primeiro rotor
+   *@param s2 configuração inicial para o segundo rotor
+   *@param s3 configuração inicial para o terceiro rotor
    *@return void
    */
-  public void initialSettings(String s1, String s2, String s3){
+  public void configuracaoInicial(String s1, String s2, String s3){
     int p;
 
-	//First Rotor
-	p = firstRotorT.toString().indexOf(s1);
-	firstRotorT.append(firstRotorT.substring(0,p));
-	firstRotorT.delete(0,p);
+	//Primeiro Rotor
+	p = primeiroRotorT.toString().indexOf(s1);
+	primeiroRotorT.append(primeiroRotorT.substring(0,p));
+	primeiroRotorT.delete(0,p);
     
-    //Second Rotor
-	p = secondRotorT.toString().indexOf(s2);
-	secondRotorT.append(secondRotorT.substring(0,p));
-	secondRotorT.delete(0,p);
+    //Segundo Rotor
+	p = segundoRotorT.toString().indexOf(s2);
+	segundoRotorT.append(segundoRotorT.substring(0,p));
+	segundoRotorT.delete(0,p);
     
-    //Third Rotor
-	p = thirdRotorT.toString().indexOf(s3);
-	thirdRotorT.append(thirdRotorT.substring(0,p));
-	thirdRotorT.delete(0,p);
+    //Terceiro Rotor
+	p = terceiroRotorT.toString().indexOf(s3);
+	terceiroRotorT.append(terceiroRotorT.substring(0,p));
+	terceiroRotorT.delete(0,p);
   }
 
   /**
-   *Creates a plubboard connection between two letters 
-   *@param x first character to be connected
-   *@param y second character to be connected
+   *Cria uma conexão no plugboard entre duas letras 
+   *@param x primeira letra a ser conectada
+   *@param y segunda letra a ser conectada
    *@return void
    */
   public void setPlugBoard(char x, char y){
@@ -135,11 +135,11 @@ public class Enigma
   }
 
   /**
-   *Sets the plug board settings
-   *@param str plug board settings formatted in pairs, 
-   *each pair seperated by a space
-   *@return boolean if str entered was in correct format
-   *and if the plugboard was set accordingly
+   *Seta a configuração do plugboard
+   *@param str configuração do plugboard formatado em pares, 
+   *cada par separado por um espaçõ
+   *@return boolean se str recebido no formato errado
+   *e se o plugboard foi setado de acordo
    */
   public boolean setPlugBoard(String str){
     String s;
@@ -164,11 +164,11 @@ public class Enigma
   }
 
   /**
-   *Returns the value of the specified Rotor.
-   *@param v name or number of rotor
-   *@return StringBuffer[] correct rotor
+   *Returna o valor do Rotor especificado.
+   *@param v nome ou número do rotor
+   *@return StringBuffer[] rotor correto
    */
-  public StringBuffer[] getValue(String v){
+  public StringBuffer[] getValor(String v){
   	StringBuffer[] result = new StringBuffer[2];
     if (v.equals("RotorI") || v.equals("1")){
     	result[0] = rotorI;
@@ -211,17 +211,17 @@ public class Enigma
     	return result;
     }
     if (v.equals("ReflectorB")){
-    	result[0] = reflectorB;
+    	result[0] = refletorB;
     	result[1] = new StringBuffer("");
     	return result;
     } 
     if (v.equals("ReflectorC")){
-    	result[0] = reflectorC;
+    	result[0] = refletorC;
     	result[1] = new StringBuffer("");
     	return result;
     } 
     if (v.equals("No Reflector")){
-    	result[0] = reflector0;
+    	result[0] = refletor0;
     	result[1] = new StringBuffer("");
     	return result;
     } 
@@ -229,48 +229,48 @@ public class Enigma
   }
 
   /**
-   *Returns the character obtained after passing l through
-   *the current first rotor
-   *@param l character input
-   *@return char obtained after passing l through the current first rotor
+   *Retorna o carctere obtido após passar l através
+   *do primeiro rotor atual
+   *@param l caractere de entrada
+   *@return char obtido após passar l através do primeiro rotor atual
    */
-  public char rotorOne(char l){
-    int position = firstRotorT.toString().indexOf(l);
-    return firstRotor.charAt(position);
+  public char rotorUm(char l){
+    int posicao = primeiroRotorT.toString().indexOf(l);
+    return primeiroRotor.charAt(posicao);
     
   }
 
   /**
-   *Returns the character obtained after passing l through
-   *the current second rotor
-   *@param l character input
-   *@return char obtained after passing l through the current second rotor
+   *Retorna o carctere obtido após passar l através
+   *do segundo rotor atual
+   *@param l caractere de entrada
+   *@return char obtido após passar l através do segundo rotor atual
    */
-  public char rotorTwo(char l){
-    int position = secondRotorT.toString().indexOf(l);
-    return secondRotor.charAt(position);
+  public char rotorDois(char l){
+    int posicao = segundoRotorT.toString().indexOf(l);
+    return segundoRotor.charAt(posicao);
   }
 
   /**
-   *Returns the character obtained after passing l through
-   *the current third rotor
-   *@param l character input
-   *@return char obtained after passing l through the current third rotor
+   *Retorna o carctere obtido após passar l através
+   *do terceiro rotor atual
+   *@param l caractere de entrada
+   *@return char obtido após passar l através do terceiro rotor atual
    */
-  public char rotorThree(char l){
-    int position = thirdRotorT.toString().indexOf(l);
-    return thirdRotor.charAt(position);
+  public char rotorTres(char l){
+    int posicao = terceiroRotorT.toString().indexOf(l);
+    return terceiroRotor.charAt(posicao);
   }
 
   /**
-   *Returns the character obtained after passing l through
-   *the current reflector
-   *@param l character input
-   *@return char obtained after passing l through the current reflector
+   *Retorna o carctere obtido após passar l através
+   *do refletor atual
+   *@param l caractere de entrada
+   *@return char obtido após passar l através do refletor atual
    */
-  public char reflector(char l){
-    int position = (int)l - 65;
-    l = reflector.charAt(position);
+  public char refletor(char l){
+    int posicao = (int)l - 65;
+    l = refletor.charAt(posicao);
     return l;
   }
 
@@ -282,8 +282,8 @@ public class Enigma
    *first rotor in the reverse direction
    */
   public char IrotorOne(char l){
-    int position = firstRotor.toString().indexOf(l);
-    return firstRotorT.charAt(position);
+    int position = primeiroRotor.toString().indexOf(l);
+    return primeiroRotorT.charAt(position);
   }
 
   /**
@@ -294,8 +294,8 @@ public class Enigma
    *second rotor in the reverse direction
    */
   public char IrotorTwo(char l){
-    int position = secondRotor.toString().indexOf(l);
-    return secondRotorT.charAt(position);
+    int position = segundoRotor.toString().indexOf(l);
+    return segundoRotorT.charAt(position);
   }
 
   /**
@@ -306,8 +306,8 @@ public class Enigma
    *third rotor in the reverse direction
    */
   public char IrotorThree(char l){
-    int position = thirdRotor.toString().indexOf(l);
-    return thirdRotorT.charAt(position);
+    int position = terceiroRotor.toString().indexOf(l);
+    return terceiroRotorT.charAt(position);
   }
 
   /**
@@ -316,24 +316,24 @@ public class Enigma
    *@return void
    */
    public void rotate(){
-   	StringBuffer currentR1 = new StringBuffer(firstRotorT.charAt(0)+"");
-   	StringBuffer currentR2 = new StringBuffer(secondRotorT.charAt(0)+"");
+   	StringBuffer currentR1 = new StringBuffer(primeiroRotorT.charAt(0)+"");
+   	StringBuffer currentR2 = new StringBuffer(segundoRotorT.charAt(0)+"");
    
    	//Rotate first rotor
-    firstRotorT.append(firstRotorT.charAt(0));
-    firstRotorT.delete(0, 1);
+    primeiroRotorT.append(primeiroRotorT.charAt(0));
+    primeiroRotorT.delete(0, 1);
 
     //if first rotor is at notch
     if (currentR1.toString().equals(n1.toString())){
     	//then also rotate second rotor
-     	secondRotorT.append(secondRotorT.charAt(0));
-     	secondRotorT.delete(0, 1);
+     	segundoRotorT.append(segundoRotorT.charAt(0));
+     	segundoRotorT.delete(0, 1);
      	
      	//if second rotor is at notch
      	if(currentR2.toString().equals(n2.toString())){
      		//then also rotate the third rotor
-     		thirdRotorT.append(thirdRotorT.charAt(0));
-     		thirdRotorT.delete(0, 1);
+     		terceiroRotorT.append(terceiroRotorT.charAt(0));
+     		terceiroRotorT.delete(0, 1);
      		}
      	}
    	}
@@ -356,7 +356,7 @@ public class Enigma
    *@return char that is the current setting of the first rotor
    */
    public char getFRSetting(){
-     return firstRotorT.charAt(0);
+     return primeiroRotorT.charAt(0);
    }
 
   /** 
@@ -365,7 +365,7 @@ public class Enigma
    *@return char that is the current setting of the second rotor
    */
    public char getSRSetting(){
-     return secondRotorT.charAt(0);
+     return segundoRotorT.charAt(0);
    }
 
   /** 
@@ -374,7 +374,7 @@ public class Enigma
    *@return char that is the current setting of the third rotor
    */
    public char getTRSetting(){
-     return thirdRotorT.charAt(0);
+     return terceiroRotorT.charAt(0);
    }
 
 
@@ -403,16 +403,16 @@ public class Enigma
            c = plugBoard(c);
            
            //then through the first rotor
-           c = rotorOne(c);
+           c = rotorUm(c);
            
            //then through the second rotor
-           c = rotorTwo(c);
+           c = rotorDois(c);
            
            //then through the third rotor
-           c = rotorThree(c);
+           c = rotorTres(c);
            
            //then through the reflector
-           c = reflector(c);
+           c = refletor(c);
            
            //then through the first rotor in the reverse direction
            c = IrotorThree(c);
