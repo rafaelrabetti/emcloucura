@@ -8,7 +8,7 @@ import java.util.*;
 
 /**
  * <p>Title: Enigma Applet</p>
- * <p>Description: User Interface for Enigma Applet</p>
+ * <p>Description: Interface de usuário da Enigma Applet</p>
  */
 
 public class EnigmaApplet extends JApplet implements ActionListener{
@@ -32,20 +32,20 @@ public class EnigmaApplet extends JApplet implements ActionListener{
   private JLabel label8;
   private JLabel label9;
   private JLabel label10;
-  private Choice rOne;
-  private Choice rTwo;
-  private Choice rThree;
+  private Choice rotorUm;
+  private Choice rotorDois;
+  private Choice rotorTres;
   private Choice refl;
-  private Choice initOne;
-  private Choice initTwo;
-  private Choice initThree;
+  private Choice iniciaUm;
+  private Choice iniciaDois;
+  private Choice iniciaTres;
   private ButtonGroup group;
-  private JRadioButton encryptRB;
-  private JButton encrypt;
+  private JRadioButton criptografaRB;
+  private JButton criptografa;
   private Enigma enigma;
 
  /**
-  *Class Constructor
+  *Construtor da classe
   *@param void
   *@return void
   */
@@ -53,7 +53,7 @@ public class EnigmaApplet extends JApplet implements ActionListener{
   }
   
   /**
-   *Initializes the applet
+   *Inicializa o applet
    *@param void
    *@return void
    */
@@ -67,13 +67,13 @@ public class EnigmaApplet extends JApplet implements ActionListener{
   }
 
   /**
-   *Initializes the Component
+   *Inicializa o componente
    *@param void
    *@return void
    */
   private void jbInit() throws Exception {
 	
-	//Initialize each component for the applet
+	//Inicializa cada componente do applet
 	
     label1 = new JLabel(" Texto: ");
     outputField = new TextArea("", 5, 15, TextArea.SCROLLBARS_VERTICAL_ONLY);
@@ -87,41 +87,41 @@ public class EnigmaApplet extends JApplet implements ActionListener{
     plugBoard = new TextArea("", 5, 15, TextArea.SCROLLBARS_VERTICAL_ONLY);
 
     label3 = new JLabel(" Rotor da Direita: ");
-    rOne = new Choice();
-    rOne.add("RotorI");
-    rOne.add("RotorII");
-    rOne.add("RotorIII");
-    rOne.add("RotorIV");
-    rOne.add("RotorV");
-    rOne.add("RotorVI");
-    rOne.add("RotorVII");
-    rOne.add("RotorVIII");
+    rotorUm = new Choice();
+    rotorUm.add("RotorI");
+    rotorUm.add("RotorII");
+    rotorUm.add("RotorIII");
+    rotorUm.add("RotorIV");
+    rotorUm.add("RotorV");
+    rotorUm.add("RotorVI");
+    rotorUm.add("RotorVII");
+    rotorUm.add("RotorVIII");
     
     label4 = new JLabel(" Rotor do Meio: ");
-    rTwo = new Choice();
-    rTwo.add("RotorI");
-    rTwo.add("RotorII");
-    rTwo.add("RotorIII");
-    rTwo.add("RotorIV");
-    rTwo.add("RotorV");
-    rTwo.add("RotorVI");
-    rTwo.add("RotorVII");
-    rTwo.add("RotorVIII");
+    rotorDois = new Choice();
+    rotorDois.add("RotorI");
+    rotorDois.add("RotorII");
+    rotorDois.add("RotorIII");
+    rotorDois.add("RotorIV");
+    rotorDois.add("RotorV");
+    rotorDois.add("RotorVI");
+    rotorDois.add("RotorVII");
+    rotorDois.add("RotorVIII");
     
     label5 = new JLabel(" Rotor da Esquerda: ");
-    rThree = new Choice();
-    rThree.add("RotorI");
-    rThree.add("RotorII");
-    rThree.add("RotorIII");
-    rThree.add("RotorIV");
-    rThree.add("RotorV");
-    rThree.add("RotorVI");
-    rThree.add("RotorVII");
-    rThree.add("RotorVIII");
+    rotorTres = new Choice();
+    rotorTres.add("RotorI");
+    rotorTres.add("RotorII");
+    rotorTres.add("RotorIII");
+    rotorTres.add("RotorIV");
+    rotorTres.add("RotorV");
+    rotorTres.add("RotorVI");
+    rotorTres.add("RotorVII");
+    rotorTres.add("RotorVIII");
     
-    initOne = choiceFill(new Choice());
-    initTwo = choiceFill(new Choice());
-    initThree = choiceFill(new Choice());
+    iniciaUm = preencheEscolha(new Choice());
+    iniciaDois = preencheEscolha(new Choice());
+    iniciaTres = preencheEscolha(new Choice());
     
     label6 = new JLabel(" Escolha Refletor: ");
     refl = new Choice();
@@ -130,14 +130,14 @@ public class EnigmaApplet extends JApplet implements ActionListener{
     refl.add("Sem Refletor");
     
     group = new ButtonGroup();
-    encryptRB = new JRadioButton("Criptografar/Descriptografar");
-    group.add(encryptRB);
-  	encryptRB.setSelected(true);
-    encrypt = new JButton("Ok");
-    encrypt.setPreferredSize(new Dimension(25,30));
+    criptografaRB = new JRadioButton("Criptografar/Descriptografar");
+    group.add(criptografaRB);
+  	criptografaRB.setSelected(true);
+    criptografa = new JButton("Ok");
+    criptografa.setPreferredSize(new Dimension(25,30));
 
     panel = new Box(BoxLayout.Y_AXIS);
-	panel.add(encryptRB);
+	panel.add(criptografaRB);
 	
 
     panel1 = new JPanel(new GridLayout(2,2,1,3));
@@ -150,14 +150,14 @@ public class EnigmaApplet extends JApplet implements ActionListener{
     panel2 = new JPanel();
     panel2.setLayout(new GridLayout(4,3,1,3));
     panel2.add(label3);
-    panel2.add(rOne);
-    panel2.add(initOne);
+    panel2.add(rotorUm);
+    panel2.add(iniciaUm);
     panel2.add(label4);
-    panel2.add(rTwo);
-    panel2.add(initTwo);
+    panel2.add(rotorDois);
+    panel2.add(iniciaDois);
     panel2.add(label5);
-    panel2.add(rThree);
-    panel2.add(initThree);
+    panel2.add(rotorTres);
+    panel2.add(iniciaTres);
     panel2.add(label6);
     panel2.add(refl);
     panel.add(panel2);
@@ -168,22 +168,21 @@ public class EnigmaApplet extends JApplet implements ActionListener{
     panel.add(panel3);
 	
 
-    panel.add(encrypt);
+    panel.add(criptografa);
 
     this.getContentPane().add(panel);
 
-    encrypt.addActionListener(this);
-    encryptRB.addActionListener(this);
+    criptografa.addActionListener(this);
+    criptografaRB.addActionListener(this);
   }
 
 
  /**
-  *Fills a Choice with the letters of the alphabet
-  *in alphabetical order
-  *@param c the Choice to be filled
+  *Preenche uma escolha com as letras do alfabeto em ordem alfabética
+  *@param c the escolha a ser preenchida
   *@return Choice
   */
-  public Choice choiceFill(Choice c){
+  public Choice preencheEscolha(Choice c){
     c.add("A");
     c.add("B");
     c.add("C");
@@ -214,7 +213,7 @@ public class EnigmaApplet extends JApplet implements ActionListener{
   }
 
  /**
-  *Handles the actions of the radiobuttons and button
+  *Lida com as ações dos radiobuttons e button
   *@param ActionEvent e
   *@return void
   */
@@ -222,59 +221,61 @@ public class EnigmaApplet extends JApplet implements ActionListener{
   	
 
   	
-  	//if encrypt radio button is selected
-  	//disable the analyzer options
-  	//and enable the encryption options
-  	if(e.getSource().equals(encryptRB)){
+	//permite as opções de criptografia
+  	if(e.getSource().equals(criptografaRB)){
   		plugBoard.setEnabled(true);
-  		rOne.setEnabled(true);
-  		rTwo.setEnabled(true);
-  		rThree.setEnabled(true);
+  		rotorUm.setEnabled(true);
+  		rotorDois.setEnabled(true);
+  		rotorTres.setEnabled(true);
   		refl.setEnabled(true);
-  		initOne.setEnabled(true);
-  		initTwo.setEnabled(true);
-  		initThree.setEnabled(true);
+  		iniciaUm.setEnabled(true);
+  		iniciaDois.setEnabled(true);
+  		iniciaTres.setEnabled(true);
   	}
   	
-  	//if the button is pressed...
-  	if(e.getSource().equals(encrypt)){
-  		//...and the encrypt button is selected
-   		if(encryptRB.isSelected()){
+  	if(e.getSource().equals(criptografa)){
+   		if(criptografaRB.isSelected()){
    		
-   		//then create a new Engima with the current settings  		
-      		enigma = new Enigma(rOne.getSelectedItem(), rTwo.getSelectedItem(),
-                          rThree.getSelectedItem(), refl.getSelectedItem());                 
-      		enigma.configuracaoInicial(initOne.getSelectedItem(), initTwo.getSelectedItem(),
-                             initThree.getSelectedItem());
+   		//entao cria uma nova Enigma com as configurações atuais	
+      		enigma = new Enigma(rotorUm.getSelectedItem(), rotorDois.getSelectedItem(),
+                          rotorTres.getSelectedItem(), refl.getSelectedItem());                 
+      		enigma.configuracaoInicial(iniciaUm.getSelectedItem(), iniciaDois.getSelectedItem(),
+                             iniciaTres.getSelectedItem());
 
-			//and check that the plug board settings are in the correct format
+			//verifica se a configuração do plugboard esta no formato correto
       		String pb = plugBoard.getText();
       		pb.trim();
-      		if (!enigma.pbParser(pb)) {
-      	  		JOptionPane.showMessageDialog(this, "Error.  Please check Plug Board settings.  Each letter should appear only once.");
+      		if (!enigma.analisaPlugboard(pb)) {
+      	  		JOptionPane.showMessageDialog(this, "Erro.  Por favor, "
+      	  				+ "verifique a configuração do plugboard.  "
+      	  				+ "Cada letra deve aparecer apenas uma vez.");
       	  		return;
      		 }
      	 	if (!enigma.setPlugBoard(pb)) {
-      	  		JOptionPane.showMessageDialog(this, "Error.  Please check that Plug Board settings are in correct format.  Settings should be entered as pairs of letters, each pair seperated by a space.");
+      	  		JOptionPane.showMessageDialog(this, "Erro.  Por favor, "
+      	  				+ "verifique se a configuração do plugboard está "
+      	  				+ "no formato correto.  A configuração deve ser com "
+      	  				+ "pares de letras e cada par separado por um espaço.");
       	  		return;
      	 	}
 			
-			//encrypt/decrypt the inputted text
+			//criptografa/descriptografa o texto entrado
      	 	String input = inputField.getText();
      	 	if (!input.equals(null) && input.length()>0) {
        			 input = input.trim();
-      	 		 String output = enigma.encrypt(input);
+      	 		 String output = enigma.criptografa(input);
        	 	if(output == null || output.equals("null")){
-           		JOptionPane.showMessageDialog(this, "Error.  Input string must consist of letters and spaces only.");
+           		JOptionPane.showMessageDialog(this, "Erro.  A mensagem de entrada"
+           				+ " deve consistir de letras e espaços apenas.");
            		return;
         	}
         	
         	else{
          	 //and display the result
           		outputField.setText(output);
-          		initOne.select(enigma.getFRSetting() + "");
-          		initTwo.select(enigma.getSRSetting() + "");
-          		initThree.select(enigma.getTRSetting() + "");
+          		iniciaUm.select(enigma.getConfiguracaoPrimeiroRotor() + "");
+          		iniciaDois.select(enigma.getConfiguracaoSegundoRotor() + "");
+          		iniciaTres.select(enigma.getConfiguracaoTerceiroRotor() + "");
        		}
       	}
      }

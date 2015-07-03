@@ -39,13 +39,13 @@ public class Enigma
   //CONFIGURAÇÃO PLUGBOARD ATUAL
   public char[] plugBoard = new char[]{'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
-  //NOTHES STATIC  - QUANDO CADA ROTOR GIRA
-  public final static StringBuffer[] notches = {new StringBuffer("Q"),new StringBuffer("E"),new StringBuffer("V"),new StringBuffer("J"),
+  //ENTALHES STATIC  - QUANDO CADA ROTOR GIRA
+  public final static StringBuffer[] entalhes = {new StringBuffer("Q"),new StringBuffer("E"),new StringBuffer("V"),new StringBuffer("J"),
   	new StringBuffer("Z"),new StringBuffer("Z"),new StringBuffer("Z"),new StringBuffer("Z")};
   
-  //NOTCHES ATUAIS DO ROTOR
-  private StringBuffer n1;
-  private StringBuffer n2;
+  //ENTALHES ATUAIS DO ROTOR
+  private StringBuffer entalhe1;
+  private StringBuffer entalhe2;
   
    /**
    * Class Construtor
@@ -57,9 +57,9 @@ public class Enigma
   public Enigma(String r1, String r2, String r3, String r)
   {
     primeiroRotor = getValor(r1)[0];
-    n1 = getValor(r1)[1];
+    entalhe1 = getValor(r1)[1];
     segundoRotor = getValor(r2)[0];
-    n2 = getValor(r2)[1];
+    entalhe2 = getValor(r2)[1];
     terceiroRotor = getValor(r3)[0];
     refletor = getValor(r)[0];
   }
@@ -71,7 +71,7 @@ public class Enigma
    */
   public void setPrimeiroRotor(String r1){
   	primeiroRotor = getValor(r1)[0];
-    n1 = getValor(r1)[1];
+    entalhe1 = getValor(r1)[1];
   }
 
  /**
@@ -81,7 +81,7 @@ public class Enigma
    */
   public void setSegundoRotor(String r2){
   	segundoRotor = getValor(r2)[0];
-    n2 = getValor(r2)[1];
+    entalhe2 = getValor(r2)[1];
   }
   
   /**
@@ -172,55 +172,55 @@ public class Enigma
   	StringBuffer[] result = new StringBuffer[2];
     if (v.equals("RotorI") || v.equals("1")){
     	result[0] = rotorI;
-    	result[1] = notches[0];
+    	result[1] = entalhes[0];
     	return result;
     	} 
     if (v.equals("RotorII")|| v.equals("2")){
     	result[0] = rotorII;
-    	result[1] = notches[1];
+    	result[1] = entalhes[1];
     	return result;
     	} 
     if (v.equals("RotorIII")|| v.equals("3")){
     	result[0] = rotorIII;
-    	result[1] = notches[2];
+    	result[1] = entalhes[2];
     	return result;
     	} 
     if (v.equals("RotorIV")|| v.equals("4")){
     	result[0] = rotorIV;
-    	result[1] = notches[3];
+    	result[1] = entalhes[3];
     	return result;
     	} 
     if (v.equals("RotorV")|| v.equals("5")){
     	result[0] = rotorV;
-    	result[1] = notches[4];
+    	result[1] = entalhes[4];
     	return result;
    		 } 
     if (v.equals("RotorVI")|| v.equals("6")){
     	result[0] = rotorVI;
-    	result[1] = notches[5];
+    	result[1] = entalhes[5];
     	return result;
     	} 
     if (v.equals("RotorVII")|| v.equals("7")){
     	result[0] = rotorVII;
-    	result[1] = notches[6];
+    	result[1] = entalhes[6];
     	return result;
     }
     if (v.equals("RotorVIII")|| v.equals("8")){
     	result[0] = rotorVIII;
-    	result[1] = notches[7];
+    	result[1] = entalhes[7];
     	return result;
     }
-    if (v.equals("ReflectorB")){
+    if (v.equals("RefletorB")){
     	result[0] = refletorB;
     	result[1] = new StringBuffer("");
     	return result;
     } 
-    if (v.equals("ReflectorC")){
+    if (v.equals("RefletorC")){
     	result[0] = refletorC;
     	result[1] = new StringBuffer("");
     	return result;
     } 
-    if (v.equals("No Reflector")){
+    if (v.equals("Sem Refletor")){
     	result[0] = refletor0;
     	result[1] = new StringBuffer("");
     	return result;
@@ -275,63 +275,60 @@ public class Enigma
   }
 
   /**
-   *Returns the character obtained after passing l through
-   *the current first rotor in the reverse direction
-   *@param l character input
-   *@return char obtained after passing l through the current
-   *first rotor in the reverse direction
+   *Retorna o carctere obtido após passar l através
+   *do primeiro rotor atual na direção inversa
+   *@param l caractere de entrada
+   *@return char obtido após passar l através do primeiro rotor atual na direção inversa
    */
-  public char IrotorOne(char l){
-    int position = primeiroRotor.toString().indexOf(l);
-    return primeiroRotorT.charAt(position);
+  public char primeiroRotorI(char l){
+    int posicao = primeiroRotor.toString().indexOf(l);
+    return primeiroRotorT.charAt(posicao);
   }
 
   /**
-   *Returns the character obtained after passing l through
-   * the current second rotor in the reverse direction
-   *@param l character input
-   *@return char obtained after passing l through the current
-   *second rotor in the reverse direction
+   *Retorna o carctere obtido após passar l através
+   *do segundo rotor atual na direção inversa
+   *@param l caractere de entrada
+   *@return char obtido após passar l através do segundo rotor atual na direção inversa
    */
-  public char IrotorTwo(char l){
-    int position = segundoRotor.toString().indexOf(l);
-    return segundoRotorT.charAt(position);
+  public char segundoRotorI(char l){
+    int posicao = segundoRotor.toString().indexOf(l);
+    return segundoRotorT.charAt(posicao);
   }
 
   /**
-   *Returns the character obtained after passing l through
-   *the current third rotor in the reverse direction
-   *@param l character input
-   *@return char obtained after passing l through the current
-   *third rotor in the reverse direction
+   *Retorna o carctere obtido após passar l através
+   *do terceiro rotor atual na direção inversa
+   *@param l caractere de entrada
+   *@return char obtido após passar l através do terceiro rotor atual na direção inversa
    */
-  public char IrotorThree(char l){
-    int position = terceiroRotor.toString().indexOf(l);
-    return terceiroRotorT.charAt(position);
+  public char terceiroRotorI(char l){
+    int posicao = terceiroRotor.toString().indexOf(l);
+    return terceiroRotorT.charAt(posicao);
   }
 
   /**
-   * Rotates the rotors according to their current settings
+   * Gira os rotores de acordo com as configurações atuais
    *@param void
    *@return void
    */
-   public void rotate(){
-   	StringBuffer currentR1 = new StringBuffer(primeiroRotorT.charAt(0)+"");
-   	StringBuffer currentR2 = new StringBuffer(segundoRotorT.charAt(0)+"");
+   public void gira(){
+   	StringBuffer atualR1 = new StringBuffer(primeiroRotorT.charAt(0)+"");
+   	StringBuffer atualR2 = new StringBuffer(segundoRotorT.charAt(0)+"");
    
-   	//Rotate first rotor
+   	//Gira o primeiro rotor
     primeiroRotorT.append(primeiroRotorT.charAt(0));
     primeiroRotorT.delete(0, 1);
 
-    //if first rotor is at notch
-    if (currentR1.toString().equals(n1.toString())){
-    	//then also rotate second rotor
+    //se o primeiro rotor é um entalhe
+    if (atualR1.toString().equals(entalhe1.toString())){
+    	//então também gira o segundo rotor
      	segundoRotorT.append(segundoRotorT.charAt(0));
      	segundoRotorT.delete(0, 1);
      	
-     	//if second rotor is at notch
-     	if(currentR2.toString().equals(n2.toString())){
-     		//then also rotate the third rotor
+     	//se o segundo rotor é um entalhe
+     	if(atualR2.toString().equals(entalhe2.toString())){
+     		//então tambem gira o terceiro rotor
      		terceiroRotorT.append(terceiroRotorT.charAt(0));
      		terceiroRotorT.delete(0, 1);
      		}
@@ -339,11 +336,11 @@ public class Enigma
    	}
 
   /** 
-   *Returns the result of passing c through
-   *the plugboard with its current settings
-   *@param c the inputted character
-   *@return char the result of passing c through
-   *the plugboard with its current settings
+   *Retorna o resultado de passar c através do plugboard com
+   *sua configuração atual
+   *@param c caracter de entrada
+   *@return char resultado de passar c através do plugboard com
+   *sua configuração atual
    */	
    public char plugBoard(char c){
      int i = (int)(c) - 65;
@@ -351,122 +348,122 @@ public class Enigma
    }
 
   /** 
-   *Returns the current setting of the first rotor.
+   *Retorna a configuração atual do primeiro rotor
    *@param void
-   *@return char that is the current setting of the first rotor
+   *@return char que é a configuração atual do primeiro rotor
    */
-   public char getFRSetting(){
+   public char getConfiguracaoPrimeiroRotor(){
      return primeiroRotorT.charAt(0);
    }
 
-  /** 
-   *Returns the current setting of the second rotor.
-   *@param void
-   *@return char that is the current setting of the second rotor
-   */
-   public char getSRSetting(){
+   /** 
+    *Retorna a configuração atual do segundo rotor
+    *@param void
+    *@return char que é a configuração atual do segundo rotor
+    */
+   public char getConfiguracaoSegundoRotor(){
      return segundoRotorT.charAt(0);
    }
 
-  /** 
-   *Returns the current setting of the third rotor.
-   *@param void
-   *@return char that is the current setting of the third rotor
-   */
-   public char getTRSetting(){
+   /** 
+    *Retorna a configuração atual do terceiro rotor
+    *@param void
+    *@return char que é a configuração atual do terceiro rotor
+    */
+   public char getConfiguracaoTerceiroRotor(){
      return terceiroRotorT.charAt(0);
    }
 
 
   /** 
-   *Encrypts/Decrypts the inputted string using the 
-   *machine's current settings
-   *@param p the text to be encrypted/decrypted
+   *Criptografa/descriptografa a string de entrada usando
+   *a configuração atual da maquina
+   *@param p texto a ser criptografado/descriptografado
    *@return void
    */
-  public String encrypt(String p){
+  public String criptografa(String p){
      p = p.toUpperCase();
      String e = "";
      char c;
      
-     //for the length of the inputted text
+     //para o tamanho do texto de entrada
      for(int i=0; i<p.length(); i++){
-       //store the current character	
+       //guarda o caracter atual
        c = p.charAt(i);
        
-       //if the current character is a letter
+       //se o caracter atual é uma letra
        if (c<=90 && c>=65){
-       	   //rotate the rotors
-           rotate();
+       	   //gira os rotores
+           gira();
            
-           //pass the character through the plugboard
+           //passa o caracter pelo plugboard
            c = plugBoard(c);
            
-           //then through the first rotor
+           //depois pelo primeiro rotor
            c = rotorUm(c);
            
-           //then through the second rotor
+           //depois pelo segundo rotor
            c = rotorDois(c);
            
-           //then through the third rotor
+           //depois pelo terceiro rotor
            c = rotorTres(c);
            
-           //then through the reflector
+           //depois pelo refletor
            c = refletor(c);
            
-           //then through the first rotor in the reverse direction
-           c = IrotorThree(c);
+           //depois pelo primeiro rotor na direção inversa
+           c = terceiroRotorI(c);
            
-           //then through the second rotor in the reverse direction
-           c = IrotorTwo(c);
+           //depois pelo segundo rotor na direção inversa
+           c = segundoRotorI(c);
            
-           //then through the third rotor in the reverse direction
-           c = IrotorOne(c);
+           //depois pelo terceiro rotor na direção inversa
+           c = primeiroRotorI(c);
            
-           //and finally back through the plugboard
+           //e finalmente de volta ao plugboard
            c = plugBoard(c);
            
-           //and add the new character to the encrypted/decrypted message
+           //entao adiciona o novo caracter à mensagem criptografada/descriptografada
            e = e + c;
        }
        
-       //if c is a space simply add it to the encrypted/decrypted message
-       //to conserve spaces
+       //se c é um espaço, simplesmente o adiciona à mensagem criptografada/descriptografada
+       //para conservar espaços
        else if(c==32)
            e = e + c;
            
-       //if c is neither a space nor a letter, then there is an error    
+       //se c não é nem um espaço nem uma letra, entao temos um erro
        else
          return null;
      }
      
-     	//return the complete encrypted/decrpyted message
+     	//retorna a mensagem criptografada/descriptografada completa
         return e;
   }
 
   /**
-   *Parses Plugboard input to check for repeated letters
-   *as each letter can only be used once in the plugboard 
-   *@param str the inputted plug board settings
+   *Analisa a entrada do plugboard pra verificar se tem letras repetidas
+   *já que cada letra só pode ser usada uma vez no plugboard
+   *@param str a entrada de configuração do plugboard
    *@return void
    */
-  public boolean pbParser(String str){
-  	//if no plug board settings were input, then continue
+  public boolean analisaPlugboard(String str){
+	//se não há configurações no plugboard, entao continua
     if(str.length()<=0 || str.equals(null) || str == null){
       return true;
     }
     
-    //otherwise, check to make sure letters are not repeated
+    //se tiver, verificar se tem letras repetidas
     for(int i=0; i<str.length()-1; i++){
-      //if not a letter, continue	
+      //se não a letra, continua	
       if(str.charAt(i)>90 || str.charAt(i)<65)
         i++;
-      //if the current letter appears in the rest of the string
+      //se a letra aparece no resto da string
       else if(str.substring(i+1).indexOf(str.charAt(i)) != -1)
         return false;
     }
     
-    //otherwise, return true
+    //caso contrário, retorna verdadeiro
     return true;
   }
   
